@@ -12,7 +12,7 @@ repositories {
 And then add the dependency for this project:
 ```gradle
 dependencies {
-    compile 'com.github.jehutyno:hiraganaedittext:1.0.0'
+    compile 'com.github.jehutyno:hiraganaedittext:1.0.1'
 }
 ```
 
