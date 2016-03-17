@@ -183,10 +183,15 @@ public class HiraganaTable {
         hiraganaMap.put("myu",  "みゅ");
         hiraganaMap.put("myo",  "みょ");
 
-        //ly
+        //ry
         hiraganaMap.put("rya",  "りゃ");
         hiraganaMap.put("ryu",  "りゅ");
         hiraganaMap.put("ryo",  "りょ");
+
+        //ly
+        hiraganaMap.put("lya",  "りゃ");
+        hiraganaMap.put("lyu",  "りゅ");
+        hiraganaMap.put("lyo",  "りょ");
     }
 
     public static final String hiraganaRegex = "[あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたちつてと" +
