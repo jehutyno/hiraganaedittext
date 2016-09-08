@@ -80,8 +80,8 @@ public class HiraganaEditText extends EditText {
 
             while (remainingText.length() > 0) {
 
-                //vowel alone or hiragana
-                if (remainingText.substring(0, 1).matches("[aeuio]") || remainingText.length() == 1
+                //vowel alone or hiragana or . or -
+                if (remainingText.substring(0, 1).matches("[aeuio-[.]]") || remainingText.length() == 1
                         || remainingText.substring(0, 1).matches(HiraganaTable.hiraganaRegex)) {
                     syllabes.add(remainingText.substring(0, 1));
                     if (remainingText.length() > 1) {
@@ -90,7 +90,7 @@ public class HiraganaEditText extends EditText {
                         remainingText = "";
                     }
                     //n followed by not a vowel
-                } else if (remainingText.substring(0,1).matches("n") && !remainingText.substring(1,2).matches("[aeyuion]")) {
+                } else if (remainingText.substring(0,1).matches("n") && !remainingText.substring(1,2).matches("[aeyuion-[.]]")) {
                     syllabes.add("nn");
                     remainingText = remainingText.substring(1, remainingText.length());
                     //two letters syllabes
