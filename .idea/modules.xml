@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
       <module fileurl="file://$PROJECT_DIR$/hiraganaedittext/hiraganaedittext.iml" filepath="$PROJECT_DIR$/hiraganaedittext/hiraganaedittext.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hiraganaedittext_github.iml" filepath="$PROJECT_DIR$/hiraganaedittext_github.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hiraganaedittext-github.iml" filepath="$PROJECT_DIR$/hiraganaedittext-github.iml" />
     </modules>
   </component>
 </project>
