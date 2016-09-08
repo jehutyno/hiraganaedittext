@@ -15,9 +15,6 @@ import java.util.ArrayList;
  */
 public class HiraganaEditText extends EditText {
 
-    private boolean flag = false;
-    private String hiraganaText;
-
     public HiraganaEditText(Context context) {
         super(context);
         init();
@@ -43,36 +40,34 @@ public class HiraganaEditText extends EditText {
         addTextChangedListener(hiraganaTextWatcher);
     }
 
-//    @Override
-//    public void setText(CharSequence text, BufferType type) {
-//        if (text.equals("a")) {
-//            text = "あ";
-//        }
-//
-//        super.setText(text, type);
-//    }
-
-
     private TextWatcher hiraganaTextWatcher = new TextWatcher() {
+        public int position;
+        public int sizeBefore;
+        private boolean flagBeforeTextChange;
+        private boolean flagAfterTextChange = false;
+
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            if (!flagBeforeTextChange) {
+                flagBeforeTextChange = true;
+                sizeBefore = s.length();
+                position = start;
+            }
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (!flag) {
-                flag = true;
-//                hiraganaText = hiraganaText + s;
+            if (!flagAfterTextChange) {
+                flagAfterTextChange = true;
                 String japText = toHiragana(s.toString());
                 setText(japText);
-                setSelection(japText.length());
-                flag = false;
+                setSelection(position + japText.length() - sizeBefore + (japText.length() < sizeBefore ? 1 : 0));
+                flagAfterTextChange = false;
+                flagBeforeTextChange = false;
             }
         }
 
