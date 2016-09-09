@@ -6,6 +6,7 @@ import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
  * Created by jehutyno on 20/02/16.
  */
 public class HiraganaEditText extends EditText {
+
+    private boolean pressed;
 
     public HiraganaEditText(Context context) {
         super(context);
@@ -133,4 +136,17 @@ public class HiraganaEditText extends EditText {
         }
     };
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_DEL) {
+            pressed = true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        pressed = false;
+        return super.onKeyUp(keyCode, event);
+    }
 }
