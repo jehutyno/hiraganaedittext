@@ -3,11 +3,9 @@ package com.jehutyno.hiraganaedittext;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -17,8 +15,7 @@ import java.util.ArrayList;
  */
 public class HiraganaEditText extends EditText {
 
-    private boolean pressed;
-    private CountDownTimer timer;
+    private boolean enableConversion = true;
 
     public HiraganaEditText(Context context) {
         super(context);
@@ -57,7 +54,7 @@ public class HiraganaEditText extends EditText {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            if (!flagBeforeTextChange) {
+            if (!flagBeforeTextChange && enableConversion) {
                 flagBeforeTextChange = true;
                 sizeBefore = s.length();
                 position = start;
@@ -66,7 +63,7 @@ public class HiraganaEditText extends EditText {
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (!flagAfterTextChange) {
+            if (!flagAfterTextChange && enableConversion) {
                 flagAfterTextChange = true;
                 String japText = toHiragana(s.toString());
                 setText(japText);
@@ -139,18 +136,26 @@ public class HiraganaEditText extends EditText {
         }
     };
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_DEL) {
-            pressed = true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public boolean isEnableConversion() {
+        return enableConversion;
     }
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        pressed = false;
-        return super.onKeyUp(keyCode, event);
+    public void setEnableConversion(boolean enableConversion) {
+        this.enableConversion = enableConversion;
     }
+
+    //    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_DEL) {
+//            pressed = true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+//
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent event) {
+//        pressed = false;
+//        return super.onKeyUp(keyCode, event);
+//    }
 
 }
