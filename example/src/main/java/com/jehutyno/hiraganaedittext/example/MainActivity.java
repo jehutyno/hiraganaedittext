@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
         HiraganaEditText hiraganaEditText = (HiraganaEditText) findViewById(R.id.edittext);
 
-        hiraganaEditText.setEnableConversion(false);
+//        hiraganaEditText.setEnableConversion(false);
     }
 }

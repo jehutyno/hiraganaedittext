@@ -67,8 +67,13 @@ public class HiraganaEditText extends EditText {
                 flagAfterTextChange = true;
                 String japText = toHiragana(s.toString());
                 setText(japText);
-                if (japText.length() > 0)
-                    setSelection(position + japText.length() - sizeBefore + (japText.length() < sizeBefore ? 1 : 0));
+                if (japText.length() > 0) {
+                    int selection = position + japText.length() - sizeBefore + (japText.length() < sizeBefore ? 1 : 0);
+                    if (selection > getText().length())
+                        selection = getText().length();
+                    setSelection(selection);
+                }
+
                 flagAfterTextChange = false;
                 flagBeforeTextChange = false;
             }
