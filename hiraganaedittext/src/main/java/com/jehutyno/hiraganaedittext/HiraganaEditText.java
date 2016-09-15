@@ -3,6 +3,7 @@ package com.jehutyno.hiraganaedittext;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class HiraganaEditText extends EditText {
 
     private boolean pressed;
+    private CountDownTimer timer;
 
     public HiraganaEditText(Context context) {
         super(context);
@@ -68,7 +70,8 @@ public class HiraganaEditText extends EditText {
                 flagAfterTextChange = true;
                 String japText = toHiragana(s.toString());
                 setText(japText);
-                setSelection(position + japText.length() - sizeBefore + (japText.length() < sizeBefore ? 1 : 0));
+                if (japText.length() > 0)
+                    setSelection(position + japText.length() - sizeBefore + (japText.length() < sizeBefore ? 1 : 0));
                 flagAfterTextChange = false;
                 flagBeforeTextChange = false;
             }
@@ -93,13 +96,13 @@ public class HiraganaEditText extends EditText {
                         remainingText = "";
                     }
                     //n followed by not a vowel
-                } else if (remainingText.substring(0,1).matches("n") && !remainingText.substring(1,2).matches("[aeyuion-[.]]")) {
+                } else if (remainingText.substring(0, 1).matches("n") && !remainingText.substring(1, 2).matches("[aeyuion-[.]]")) {
                     syllabes.add("nn");
                     remainingText = remainingText.substring(1, remainingText.length());
                     //two letters syllabes
                 } else if (remainingText.substring(1, 2).matches("[aeuio]")
                         || remainingText.substring(0, 2).matches("nn")
-                        || remainingText.length() == 2 ) {
+                        || remainingText.length() == 2) {
                     syllabes.add(remainingText.substring(0, 2));
                     if (remainingText.length() > 2) {
                         remainingText = remainingText.substring(2, remainingText.length());
@@ -109,9 +112,9 @@ public class HiraganaEditText extends EditText {
                     //three letters syllabes
                 } else if (remainingText.substring(2, 3).matches("[aeuio]") || remainingText.length() >= 3) {
                     //little tsu case with two following
-                    if (remainingText.substring(0,1).equals(remainingText.substring(1, 2))) {
+                    if (remainingText.substring(0, 1).equals(remainingText.substring(1, 2))) {
                         syllabes.add("lttu");
-                        remainingText =  remainingText.substring(1, remainingText.length());
+                        remainingText = remainingText.substring(1, remainingText.length());
 
                         //normal 3 letters syllabes case
                     } else {
@@ -149,4 +152,5 @@ public class HiraganaEditText extends EditText {
         pressed = false;
         return super.onKeyUp(keyCode, event);
     }
+
 }
