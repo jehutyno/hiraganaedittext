@@ -63,20 +63,21 @@ public class HiraganaEditText extends EditText {
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (!flagAfterTextChange && enableConversion) {
+            if (!flagAfterTextChange && enableConversion && s.length() >= sizeBefore) {
                 flagAfterTextChange = true;
                 String japText = toHiragana(s.toString());
-                setText(japText);
-                if (japText.length() > 0) {
-                    int selection = position + japText.length() - sizeBefore + (japText.length() < sizeBefore ? 1 : 0);
-                    if (selection > getText().length())
-                        selection = getText().length();
-                    setSelection(selection);
+                if (!s.toString().equals(japText)) {
+                    setText(japText);
+                    if (japText.length() > 0) {
+                        int selection = position + japText.length() - sizeBefore + (japText.length() < sizeBefore ? 1 : 0);
+                        if (selection > getText().length())
+                            selection = getText().length();
+                        setSelection(selection);
+                    }
                 }
-
-                flagAfterTextChange = false;
-                flagBeforeTextChange = false;
             }
+            flagAfterTextChange = false;
+            flagBeforeTextChange = false;
         }
 
         public String toHiragana(String romajiText) {
